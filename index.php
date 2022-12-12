@@ -38,10 +38,11 @@ function form($y) {
                             0 => 'input',
                             1 => false,
                             2 => [
+                                'autocomplete' => 'off',
                                 'id' => $id,
                                 'name' => 'comment[math]',
                                 'required' => true,
-                                'style' => 'max-width: 5em; width: 5em;',
+                                'style' => 'max-width: 6em; width: 6em;',
                                 'type' => 'text'
                             ]
                         ]

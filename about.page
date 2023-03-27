@@ -7,9 +7,6 @@ author: Taufik Nurrohman
 image: /lot/x/comment.guard.math/index.png
 type: Markdown
 version: 1.0.0
-
-use:
-  '.\lot\x\comment': 1
 ...
 
 When installed, a math question field will be inserted in the comment form, and visitors are required to fill in that

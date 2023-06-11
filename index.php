@@ -13,28 +13,29 @@ function route__comment($content, $path, $query, $hash) {
     if (isset($state->x->user) && \Is::user()) {
         return $content; // Disable the security if current user is logged-in
     }
+    $can_alert = \class_exists("\\Alert");
     $current = $_POST['comment']['math'] ?? "";
     $prev = $_SESSION['comment']['math'] ?? "";
     if ("" === $current) {
         foreach (['author', 'content', 'email', 'link'] as $v) {
             $_SESSION['form']['comment'][$v] = $_POST['comment'][$v] ?? null;
         }
-        \class_exists("\\Alert") && \Alert::error('Please answer the math question!');
+        $can_alert && \Alert::error('Please answer the math question!');
         \kick($path . $query . ($hash ?? '#comment'));
     }
     if ("" === $prev || $current !== $prev) {
         foreach (['author', 'content', 'email', 'link'] as $v) {
             $_SESSION['form']['comment'][$v] = $_POST['comment'][$v] ?? null;
         }
-        \class_exists("\\Alert") && \Alert::error('Incorrect answer!');
+        $can_alert && \Alert::error('Incorrect answer!');
         \kick($path . $query . ($hash ?? '#comment'));
     }
-    unset($_POST['comment']['math']); // Remove the value so that it won’t be saved to the comment file
+    unset($_POST['comment']['math']); // Remove the value so that it won’t be saved in the comment file
     return $content;
 }
 
-function y__form__comment($y) {
-    \extract($GLOBALS, \EXTR_SKIP);
+function y__form__comment($y, $lot) {
+    \extract($lot, \EXTR_SKIP);
     if (isset($state->x->user) && \Is::user()) {
         return $y; // Disable the security if current user is logged-in
     }

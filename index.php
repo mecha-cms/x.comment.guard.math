@@ -42,7 +42,7 @@ function y__form__comment($y, $lot) {
     $a = \mt_rand(1, 10);
     $b = \mt_rand(1, 10);
     $c = $a > $b ? '-' : '+';
-    $_SESSION['comment']['math'] = '+' === $c ? $a + $b : $a - $b;
+    $_SESSION['comment']['math'] = $a > $b ? $a - $b : $a + $b;
     // Find the exact position of the comment button(s)
     if (\is_int($index = \array_search('tasks', \array_keys($y[1])))) {
         // Put the math challenge field exactly before the comment button(s)

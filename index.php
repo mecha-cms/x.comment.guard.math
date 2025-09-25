@@ -14,23 +14,23 @@ function route__comment($content, $path, $query, $hash) {
         return $content; // Disable the security if current user is logged-in
     }
     $can_alert = \class_exists("\\Alert");
-    $current = $_POST['comment']['math'] ?? "";
+    $current = $_POST['math'] ?? "";
     $prev = $_SESSION['comment']['math'] ?? "";
     if ("" === $current) {
         foreach (['author', 'content', 'email', 'link'] as $v) {
-            $_SESSION['form']['comment'][$v] = $_POST['comment'][$v] ?? null;
+            $_SESSION['form'][$v] = $_POST[$v] ?? null;
         }
         $can_alert && \Alert::error('Please answer the math question!');
         \kick($path . $query . ($hash ?? '#comment'));
     }
     if ("" === $prev || $current !== $prev) {
         foreach (['author', 'content', 'email', 'link'] as $v) {
-            $_SESSION['form']['comment'][$v] = $_POST['comment'][$v] ?? null;
+            $_SESSION['form'][$v] = $_POST[$v] ?? null;
         }
         $can_alert && \Alert::error('Incorrect answer!');
         \kick($path . $query . ($hash ?? '#comment'));
     }
-    unset($_POST['comment']['math']); // Remove the value so that it won’t be saved in the comment file
+    unset($_POST['math']); // Remove the value so that it won’t be saved in the comment file
     return $content;
 }
 
@@ -69,7 +69,7 @@ function y__form__comment($y, $lot) {
                             2 => [
                                 'autocomplete' => 'off',
                                 'id' => $id,
-                                'name' => 'comment[math]',
+                                'name' => 'math',
                                 'required' => true,
                                 'style' => 'max-width: 6em; width: 6em;',
                                 'type' => 'text'

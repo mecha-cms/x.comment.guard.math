@@ -10,7 +10,7 @@ function route__comment($content, $path, $query, $hash) {
         return $content;
     }
     \extract(\lot(), \EXTR_SKIP);
-    if (isset($state->x->user) && \Is::user()) {
+    if (isset($state->x->user, $user) && $user->exist) {
         return $content; // Disable the security if current user is logged-in
     }
     $can_alert = \class_exists("\\Alert");
@@ -36,7 +36,7 @@ function route__comment($content, $path, $query, $hash) {
 
 function y__form__comment($y, $lot) {
     \extract(\lot($lot), \EXTR_SKIP);
-    if (isset($state->x->user) && \Is::user()) {
+    if (isset($state->x->user, $user) && $user->exist) {
         return $y; // Disable the security if current user is logged-in
     }
     $a = \mt_rand(1, 10);
